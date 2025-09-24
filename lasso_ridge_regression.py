@@ -29,6 +29,25 @@ def generate_synthetic_data(n_samples=SAMPLES, n_features=FEATURES, noise=NOISE,
     y = X @ true_weights + noise * np.random.randn(n_samples)
     return X, y, true_weights
 # -----------------------------
+# 4. GRADIENT DESCENT BASE CLASS (FOR CODE REUSE)
+# -----------------------------
+class GradientDescentRegressor:
+    def _init_(self, learning_rate=LEARNING_RATE, max_iter=MAX_ITERATIONS, tol=TOLERANCE):
+        self.learning_rate = learning_rate
+        self.max_iter = max_iter
+        self.tol = tol
+        self.weights = None
+        self.bias = 0.0
+        self.cost_history = []
+
+    def fit(self, X, y):
+        """Template method for model training."""
+        raise NotImplementedError("Subclasses must implement the fit method.")
+
+    def predict(self, X):
+        """Makes predictions on new data."""
+        return X @ self.weights + self.bias
+# -----------------------------
 # 5. REGRESSION MODELS
 # -----------------------------
 class LinearRegressionGD(GradientDescentRegressor):
