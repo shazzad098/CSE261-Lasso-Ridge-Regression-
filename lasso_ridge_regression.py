@@ -28,6 +28,18 @@ def generate_synthetic_data(n_samples=SAMPLES, n_features=FEATURES, noise=NOISE,
     
     y = X @ true_weights + noise * np.random.randn(n_samples)
     return X, y, true_weights
+# -----------------------------
+# 3. UTILITY FUNCTIONS
+# -----------------------------
+def mean_squared_error(y_true, y_pred):
+    """Calculates the Mean Squared Error (MSE)."""
+    return np.mean((y_true - y_pred) ** 2)
+
+def r2_score(y_true, y_pred):
+    """Calculates the R^2 score."""
+    ss_res = np.sum((y_true - y_pred) ** 2)
+    ss_tot = np.sum((y_true - np.mean(y_true)) ** 2)
+    return 1 - (ss_res / ss_tot)
 
 # -----------------------------
 # 4. GRADIENT DESCENT BASE CLASS (FOR CODE REUSE)
@@ -139,7 +151,7 @@ class LassoRegressionGD(GradientDescentRegressor):
                 break
 
 
-            # -----------------------------
+# -----------------------------
 # 6. PLOTTING & REPORTING
 # -----------------------------
 def plot_coefficients(true_weights, models, feature_names):
@@ -147,9 +159,9 @@ def plot_coefficients(true_weights, models, feature_names):
     plt.figure(figsize=(12, 6))
     
     plt.plot(feature_names, true_weights, 'o-', label='True Coefficients', linewidth=2)
-    plt.plot(feature_names, models['Linear'].weights, 's--', label='Linear Regression', alpha=0.😎
-    plt.plot(feature_names, models['Ridge'].weights, '^--', label='Ridge Regression', alpha=0.😎
-    plt.plot(feature_names, models['Lasso'].weights, 'd--', label='Lasso Regression', alpha=0.😎
+    plt.plot(feature_names, models['Linear'].weights, 's--', label='Linear Regression', alpha=0.
+    plt.plot(feature_names, models['Ridge'].weights, '^--', label='Ridge Regression', alpha=0.
+    plt.plot(feature_names, models['Lasso'].weights, 'd--', label='Lasso Regression', alpha=0.
 
     plt.axhline(0, color='black', linestyle='--', alpha=0.5)
     plt.title('Comparison of Regression Coefficients', fontsize=16)
