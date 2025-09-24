@@ -1,3 +1,33 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+import os
+
+# -----------------------------
+# 1. CONSTANTS & HYPERPARAMETERS
+# -----------------------------
+REPORT_DIR = "report_data"
+LEARNING_RATE = 0.05
+MAX_ITERATIONS = 2000
+TOLERANCE = 1e-6
+ALPHA = 1.0
+SAMPLES = 200
+FEATURES = 10
+NOISE = 0.5
+RANDOM_SEED = 42
+
+# -----------------------------
+# 2. DATA GENERATION
+# -----------------------------
+def generate_synthetic_data(n_samples=SAMPLES, n_features=FEATURES, noise=NOISE, random_state=RANDOM_SEED):
+    np.random.seed(random_state)
+    X = np.random.randn(n_samples, n_features)
+    
+    # First half of features are relevant, the rest are irrelevant.
+    true_weights = np.array([3.0, -1.5, 2.0, 0.8, -2.2] + [0.0] * (n_features - 5))
+    
+    y = X @ true_weights + noise * np.random.randn(n_samples)
+    return X, y, true_weights
 # -----------------------------
 # 5. REGRESSION MODELS
 # -----------------------------
